@@ -14,10 +14,14 @@ import com.stulsoft.yscdutil.data.SoftItem
  *
  */
 class SoftItemTest extends FlatSpec with Matchers  {
+	def createSoftItem : SoftItem = {
+		new SoftItem("the name", "the type")
+	}
+	
 	"A SoftItem" should "be serializable with JSon" in {
 		val mapper: ObjectMapper = new ObjectMapper()
 
-		val source = new SoftItem("the name", "the type")
+		val source = createSoftItem
 		val json = mapper.writeValueAsString(source)
 		
 		val restored = mapper.readValue(json, classOf[SoftItem])
@@ -25,22 +29,13 @@ class SoftItemTest extends FlatSpec with Matchers  {
 		restored shouldEqual source 
 	}
 	it should "implement ==" in {
-		val s1 = new SoftItem("the name", "the type")
-		val s2 = new SoftItem("the name", "the type")
+		val s1 = createSoftItem
+		val s2 = createSoftItem
 		s1 shouldEqual s2
 	}
 	it should "implement hashCode" in {
-		val s1 = new SoftItem("the name", "the type")
-		val s2 = new SoftItem("the name", "the type")
+		val s1 = createSoftItem
+		val s2 = createSoftItem
 		s1.hashCode shouldEqual s2.hashCode
 	}
 }
-
-/*****************************************
-object SoftItemTest{
-	
-	def createSoftItem {
-		new SoftItem("the name", "the type")
-	}
-}
-*******************************************/
