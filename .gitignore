@@ -18,3 +18,5 @@ project/plugins/project/
 /.settings
 /.project
 /bin/
+/.cache-main
+/.classpath

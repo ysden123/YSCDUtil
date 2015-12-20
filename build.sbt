@@ -9,6 +9,7 @@ lazy val root = (project in file(".")).
     	, "org.apache.logging.log4j" % "log4j-api" % "2.5"
     	, "org.apache.logging.log4j" % "log4j-core" % "2.5"
     	, "org.mapdb" % "mapdb" % "1.0.8"
+    	, "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
     ),
     scalacOptions in (Compile, doc) ++= Seq("-author"),
     packAutoSettings

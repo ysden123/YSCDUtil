@@ -54,29 +54,3 @@ class SoftItem(var n: String, var t: String) {
 		h
 	}
 }
-
-/**
- * For testing SoftItem.
- *
- * @author Yuriy Stul
- *
- */
-object Main4SoftItemTest {
-	/**
-	 * For testing SoftItem.
-	 *
-	 * @param args
-	 */
-	def main(args: Array[String]): Unit = {
-		val mapper: ObjectMapper = new ObjectMapper()
-		val si: SoftItem = new SoftItem("name1", "type 111")
-		val json: String = mapper.writeValueAsString(si)
-		println(s"json: $json")
-		val siRestored = mapper.readValue(json, classOf[SoftItem])
-		println(s"siRestored.n= ${siRestored.n}, siRestored.t=${siRestored.t}")
-		println(siRestored)
-		println(s"si == siRestored: ${si == siRestored}")
-		println(s"si.equals(siRestored): ${si.equals(siRestored)}")
-		println(s"si.hashCode == siRestored.hashCode: ${si.hashCode == siRestored.hashCode}")
-	}
-}
