@@ -4,10 +4,12 @@
  
 package com.stulsoft.yscdutil.test.data
 
-import org.scalatest.Matchers
 import org.scalatest.FlatSpec
+import org.scalatest.Matchers
+
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.stulsoft.yscdutil.data.SoftItem
+import com.stulsoft.yscdutil.data.SoftItemType._
 
 /**
  * @author Yuriy Stul
@@ -15,7 +17,9 @@ import com.stulsoft.yscdutil.data.SoftItem
  */
 class SoftItemTest extends FlatSpec with Matchers  {
 	def createSoftItem : SoftItem = {
-		new SoftItem("the name", "the type")
+		val si = new SoftItem("the name", CATEGORY)
+		si.i = "123" 
+		si
 	}
 	
 	"A SoftItem" should "be serializable with JSon" in {
@@ -23,6 +27,7 @@ class SoftItemTest extends FlatSpec with Matchers  {
 
 		val source = createSoftItem
 		val json = mapper.writeValueAsString(source)
+//		println(json)
 		
 		val restored = mapper.readValue(json, classOf[SoftItem])
 
@@ -37,5 +42,14 @@ class SoftItemTest extends FlatSpec with Matchers  {
 		val s1 = createSoftItem
 		val s2 = createSoftItem
 		s1.hashCode shouldEqual s2.hashCode
+	}
+	it should "implement toString with i = null" in {
+		val s = new SoftItem("the name", DISK)
+		"SoftItem: n=the name, i=null, t=DISK" shouldEqual s.toString
+	}
+	it should "implement toString with i = \"123\"" in {
+		val s = new SoftItem("the name", DISK)
+		s.i = "123"
+		"SoftItem: n=the name, i=123, t=DISK" shouldEqual s.toString
 	}
 }
