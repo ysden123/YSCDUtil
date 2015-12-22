@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2015, Yuriy Stul. All rights reserved
  */
- 
+
 package com.stulsoft.yscdutil.test.data
 
 import org.scalatest.FlatSpec
@@ -15,23 +15,23 @@ import com.stulsoft.yscdutil.data.SoftItemType._
  * @author Yuriy Stul
  *
  */
-class SoftItemTest extends FlatSpec with Matchers  {
-	def createSoftItem : SoftItem = {
+class SoftItemTest extends FlatSpec with Matchers {
+	def createSoftItem: SoftItem = {
 		val si = new SoftItem("the name", CATEGORY)
-		si.i = "123" 
+		si.i = "123"
 		si
 	}
-	
+
 	"A SoftItem" should "be serializable with JSon" in {
 		val mapper: ObjectMapper = new ObjectMapper()
 
 		val source = createSoftItem
 		val json = mapper.writeValueAsString(source)
-//		println(json)
-		
+		//		println(json)
+
 		val restored = mapper.readValue(json, classOf[SoftItem])
 
-		restored shouldEqual source 
+		restored shouldEqual source
 	}
 	it should "implement ==" in {
 		val s1 = createSoftItem
