@@ -3,6 +3,7 @@
  */
 package com.stulsoft.yscdutil;
 
+import java.io.File;
 import java.util.concurrent.ConcurrentNavigableMap;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,9 +26,25 @@ public class YSCDUtilMain {
 	 *            input parameters
 	 */
 	public static void main(String[] args) {
-		final String srcFolder = "d:\\My Documents D\\My Data\\YS Disks";
-		final String dstFolder = "d:\\work\\YS Disks";
+		if (args.length != 2){
+			usage();
+			return;
+		}
+		final String srcFolder = args[0];	// "d:\\My Documents D\\My Data\\YS Disks";
+		final String dstFolder = args[1];	// "d:\\work\\YS Disks";
 		logger.info("Copy DB from {} to {}", srcFolder, dstFolder);
+		
+		if (!(new File(srcFolder)).exists()){
+			logger.error("Folder {} doesn't exist", srcFolder);
+			return;
+		}
+		
+		File dstFile = new File(dstFolder);
+		if (dstFile.exists()){
+			dstFile.delete();
+		}
+		dstFile.mkdirs();
+		
 		DBManagerSrc src = new DBManagerSrc(srcFolder);
 		DBManagerDst dst = new DBManagerDst(dstFolder);
 
@@ -51,5 +68,9 @@ public class YSCDUtilMain {
 		}
 		
 		logger.info("Completed.");
+	}
+	
+	private static void usage(){
+		System.out.println("Usage java -jar YSCDUtil.jar <src folder> <dst folder>");
 	}
 }
